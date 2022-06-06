@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Edição
+{% endblock %}
+
+{% block main %}
+
+<div>
+    <div style="display: flex; align-items: center; justify-content: center; padding: 20px">
+        <h1>EDITAR DIÁRIAS</h1>
+    </div>
+    <div class="Div01">
+        <form method="POST">
+       
+            {% csrf_token %}
+            {{ form|crispy }}
+
+         <button type="submit" class="btn btn-primary">Editar Diária</button>
+        </form>
+     </div>
+
+        <div style="padding-top:30px">
+            <h1>CONSULTAR DIÁRIAS</h1>
+            <div style="flex">
+                <ul style="align-items:center">
+                    {% for diaria in diarias %}
+                    <li> {{ diaria }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+</div>
+
+        {% endblock %}

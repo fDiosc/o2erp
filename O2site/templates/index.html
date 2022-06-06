@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+<div style="display: flex;
+    align-items: center;
+    justify-content: center; padding: 40px">
+
+    <h1>PORTAL O2 CLEAN</h1>
+</div>
+    <div style="display: flex;
+    align-items: center;
+    justify-content: center; padding-bottom: 40px">
+        <a href="{% url 'login' %}">Faça seu login</a>
+    </div>
+
+
+
+{% endblock %}

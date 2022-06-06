@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cadastros
+{% endblock %}
+
+{% block main %}
+
+<div>
+    <h1>CADASTRAR PESSOA FÍSICA</h1>
+    <div>
+        <form method="POST">
+       
+            {% csrf_token %}
+            {{ form.as_p }}
+
+         <button type="submit" class="btn-btn">Cadastrar Pessoa</button>
+        </form>
+     </div>
+
+        <div>
+            <h1>CONSULTAR PESSOA FÍSICA</h1>
+            <div style="flex">
+                <ul style="align-items:center">
+                    {% for pessoa in pessoas %}
+                    <li> {{ pessoa }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+</div>
+
+        {% endblock %}

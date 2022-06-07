@@ -6,16 +6,28 @@ class User(AbstractUser):
     pass
 
 class PessoaFisica(models.Model):
+    PF_TIPO = (
+        ("CLIENTE", "CLIENTE"),
+        ("FUNCIONÁRIO", "FUNCIONÁRIO"),
+     )
+      
+    PF_CARGO = (
+        ("CLT", "CLT"),
+        ("DIARISTA", "DIARISTA"),
+        ("CLIENTE", "CLIENTE"),
+     )
+
     nome = models.CharField(blank=False, max_length=100)
     cpf = models.CharField(blank=False, max_length=20)
     endereco = models.CharField(blank=True, max_length=200)
     email = models.CharField(blank=True, max_length=50)
     telefone = models.CharField(blank=True, max_length=20)
-    tipo = models.CharField(blank=False, max_length=20) # cliente, funcionário, etc
-    cargo = models.CharField(blank=False, max_length=40) # ASG
+    tipo = models.CharField(blank=False, choices=PF_TIPO, null=False, max_length=20) # cliente, funcionário, etc
+    cargo = models.CharField(blank=True, choices=PF_CARGO, null=True, max_length=20) # ASG
+    cadastro = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.nome
+        return f"Nome: {self.nome}, Tipo: {self.tipo}, cargo: {self.cargo}, Data de cadastro: {self.cadastro}"
 
 class PessoaJuridica(models.Model):
     PJ_CHOICES = (
@@ -60,7 +72,6 @@ class Diaria(models.Model):
     pessoafisica = models.ForeignKey('PessoaFisica', on_delete=models.CASCADE)
     servico = models.ForeignKey('Servico', blank=False, on_delete=models.CASCADE)
     nome = models.CharField(blank=True, max_length=100)
-    servico = models.CharField(blank=False, max_length=100)
     choices = models.CharField(blank=False, choices=DIARIA_CHOICES, null=False, max_length=2)
     data = models.DateTimeField(null=False, blank=False)
     observacao = models.TextField(blank=True)

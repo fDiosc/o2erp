@@ -69,13 +69,11 @@ def servico(request):
 
 @login_required(login_url='login')
 def servicoativo(request):
-    items = []
-    servico = Servico.objects.all().values()
-    for item in servico:
-        if item['ativo'] == True:
-            items.append(item)
+    
+    servico = Servico.objects.filter(ativo=True)
+    print(servico)
             
-    return render(request, "servicoativo.html", {"servicos":Servico.objects.all(), "items":items})
+    return render(request, "servicoativo.html", {"servicos":Servico.objects.all(), "items":servico})
 
 def login_view(request):
 

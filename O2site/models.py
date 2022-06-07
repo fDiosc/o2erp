@@ -18,14 +18,19 @@ class PessoaFisica(models.Model):
         return self.nome
 
 class PessoaJuridica(models.Model):
+    PJ_CHOICES = (
+        ("CLIENTE", "CLIENTE"),
+        ("FORNECEDOR", "FORNECEDOR"),
+    )
+
     razao_social = models.CharField(blank=False, max_length=100)
     cnpj = models.CharField(blank=False, max_length=30)
     endereco = models.CharField(blank=True, max_length=200)
     email = models.CharField(blank=True, max_length=50)
     telefone = models.CharField(blank=True, max_length=20)
-    tipo = models.CharField(blank=False, max_length=20) # cliente, fornecedor, etc
+    tipo = models.CharField(blank=False, choices=PJ_CHOICES, null=False, max_length=20) # cliente, fornecedor, etc
     pessoafisica = models.ManyToManyField(PessoaFisica, blank=True, related_name="PessoasJuridicas")
-    fornecimento = models.CharField(blank=False, max_length=40) # Mat. limpeza, Mat. construção, Combustíveis
+    
 
     def __str__(self):
         return self.razao_social

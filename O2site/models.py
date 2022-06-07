@@ -38,10 +38,11 @@ class Servico(models.Model):
     qtd_asg = models.IntegerField(blank=False)
     observacao = models.TextField(blank=True)
     endereco = models.CharField(blank=False, max_length=200)
+    ativo = models.BooleanField(default=True)
     
 
     def __str__(self):
-        return f"Cliente: {self.pessoajuridica.razao_social}, Tipo: {self.tag}, Contrato: {self.contrato.n_ct}, Data Início: {self.contrato.data_inicio}, Previsão de execução: até {self.contrato.previsao_execucao} dias, Qtd ASG TOTAL: {self.qtd_asg}"
+        return f"Cliente: {self.pessoajuridica.razao_social}, Tipo: {self.tag}, Contrato: {self.contrato.n_ct}, Data Início: {self.contrato.data_inicio}, Previsão de execução: até {self.contrato.previsao_execucao} dias, Qtd ASG TOTAL: {self.qtd_asg}, Ativo: {self.ativo}"
 
 class Diaria(models.Model):
     DIARIA_CHOICES = (
@@ -58,9 +59,10 @@ class Diaria(models.Model):
     choices = models.CharField(blank=False, choices=DIARIA_CHOICES, null=False, max_length=2)
     data = models.DateTimeField(null=False, blank=False)
     observacao = models.TextField(blank=True)
+    paga = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Nome: {self.pessoafisica.nome}, Serviço: {self.servico}, Data: {self.data}, Detalhes: {self.choices}"
+        return f"Nome: {self.pessoafisica.nome}, Serviço: {self.servico}, Data: {self.data}, Detalhes: {self.choices}, Pago: {self.paga}"
 
 class Contrato(models.Model):
     pessoafisica = models.ForeignKey('PessoaFisica', blank=True, on_delete=models.CASCADE)
@@ -70,6 +72,7 @@ class Contrato(models.Model):
     valor = models.FloatField(blank=False)
     data_inicio = models.DateField(blank=False)
     previsao_execucao = models.IntegerField(blank=False)
+    ativo = models.BooleanField(default=True)
 
     def __str__(self):
         return f"Empresa: {self.pessoajuridica}, Ct. num: {self.n_ct}, Área: {self.area}, Data de início: {self.data_inicio}, Previsão: {self.previsao_execucao}, Valor: {self.valor}, Endereço: {self.pessoajuridica.endereco}"

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cadastros
+{% endblock %}
+
+{% block main %}
+
+<div>
+   
+        <div>
+            <h1>CONSULTAR SERVIÇOS ATIVOS</h1>
+            <div style="flex">
+                <ul style="align-items:center">
+                    {% for item in items %}
+                    
+                    <li> {{ item }} </li>
+                    
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+</div>
+
+        {% endblock %}

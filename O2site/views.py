@@ -67,6 +67,16 @@ def servico(request):
     
     return render(request, "servico.html", {"form":form, "servicos":Servico.objects.all()})
 
+@login_required(login_url='login')
+def servicoativo(request):
+    items = []
+    servico = Servico.objects.all().values()
+    for item in servico:
+        if item['ativo'] == True:
+            items.append(item)
+            
+    return render(request, "servicoativo.html", {"servicos":Servico.objects.all(), "items":items})
+
 def login_view(request):
 
     if request.method == "POST":
@@ -131,7 +141,6 @@ def update(request, item_id):
         form = forms.Diarias(request.POST, instance=item)
 
         if form.is_valid():
-            print(form.cleaned_data)
             form.save()
             return HttpResponseRedirect(reverse('diarias'))   
         else:

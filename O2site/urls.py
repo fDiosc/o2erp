@@ -10,6 +10,7 @@ urlpatterns = [
     path("pessoajuridica", views.pessoajuridica, name="pessoajuridica"),
     path("contrato", views.contrato, name="contrato"),
     path("servico", views.servico, name="servico"),
+    path("servicoativo", views.servicoativo, name="servicoativo"),
     path("update/<int:item_id>", views.update, name="update"),
     # User and login urls
     path("login", views.login_view, name="login"),
